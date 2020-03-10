@@ -6,6 +6,11 @@
 
 RCT_EXPORT_MODULE();
 
+RCT_EXPORT_METHOD(getSupportMatrix: callback:(RCTResponseSenderBlock)callback)
+{
+    callback(@[[[self class] isFaceIdDevice], [[self class] isTouchIdDevice]]);
+}
+
 RCT_EXPORT_METHOD(isSupported: (NSDictionary *)options
                   callback: (RCTResponseSenderBlock)callback)
 {
@@ -165,6 +170,41 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
     }
 
     return @"TouchID";
+}
+
++ (BOOL)isFaceIdDevice
+{
+  static BOOL isFaceIDDevice = NO;
+
+  if (@available(iOS 11.0, *)) {
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+      LAContext *context = [LAContext new];
+      [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
+      isFaceIDDevice = context.biometryType == LABiometryTypeFaceID;
+    });
+  }
+
+  return isFaceIDDevice;
+}
+
++ (BOOL)isTouchIdDevice
+{
+  static BOOL isTouchIDDevice = NO;
+  static dispatch_once_t onceToken;
+
+  dispatch_once(&onceToken, ^{
+    LAContext *context = [LAContext new];
+    [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
+    if (@available(iOS 11.0, *)) {
+      isTouchIDDevice = context.biometryType == LABiometryTypeTouchID;
+    } else {
+      isTouchIDDevice = true;
+    }
+  });
+
+  return isTouchIDDevice;
 }
 
 @end

@@ -40,6 +40,7 @@ class TouchIDExample extends Component {
   }
 
   _clickHandler() {
+    TouchID.getSupportMatrix().then((res) => console.log("Support Matrix: ", res))
     TouchID.isSupported()
       .then(authenticate)
       .catch(error => {

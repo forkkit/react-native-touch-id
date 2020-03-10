@@ -21,6 +21,7 @@ export default class App extends Component<{}> {
   }
 
   componentDidMount() {
+    TouchID.getSupportMatrix().then((res) => console.log("Support Matrix: ", res))
     TouchID.isSupported()
     .then(biometryType => {
       this.setState({ biometryType });

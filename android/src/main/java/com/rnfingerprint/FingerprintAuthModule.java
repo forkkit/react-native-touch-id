@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
+import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 
 import com.facebook.react.bridge.Callback;
@@ -20,6 +21,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
     private static final String FRAGMENT_TAG = "fingerprint_dialog";
 
+    private final BiometricManager mBiometricManager;
     private KeyguardManager keyguardManager;
     private boolean isAppActive;
 
@@ -29,6 +31,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
         super(reactContext);
 
         reactContext.addLifecycleEventListener(this);
+        mBiometricManager = BiometricManager.from(context);
     }
 
     private KeyguardManager getKeyguardManager() {
@@ -48,6 +51,22 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
     @Override
     public String getName() {
         return "FingerprintAuth";
+    }
+
+    @ReactMethod
+    public void getSupportMatrix(final Callback reactCallback) {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            return;
+        }
+
+        int result = mBiometricManager.canAuthenticate();
+        List<Integer> results = new ArrayList<>();
+        if (result == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
+            reactCallback.invoke(false, false);
+            return;
+        }
+        reactCallback.invoke(true, false);
     }
 
     @ReactMethod

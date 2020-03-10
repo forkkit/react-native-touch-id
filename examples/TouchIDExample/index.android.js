@@ -16,6 +16,7 @@ import React, {
 class TouchIDExample extends Component {
   _pressHandler() {
     const optionalConfigObject = { title: 'Authentication Required', color: '#e00606' };
+    TouchID.getSupportMatrix().then((res) => console.log("Support Matrix: ", res))
     TouchID.authenticate('to demo this react-native component', optionalConfigObject)
       .then(success => {
         Alert.alert('Authenticated Successfully');
@@ -25,6 +26,7 @@ class TouchIDExample extends Component {
       });
   }
   _testSupport() {
+    TouchID.getSupportMatrix().then((res) => console.log("Support Matrix: ", res))
     TouchID.isSupported()
       .then(supported => {
         // Success code
