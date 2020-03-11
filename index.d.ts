@@ -93,6 +93,11 @@ declare module 'react-native-touch-id' {
       code: IsSupportedErrorCode;
       details: string;
     }
+
+    export interface SupportMatrix {
+      hasFaceId: boolean
+      hasTouchId: boolean
+    }
   
     const TouchID: {
       /**
@@ -106,6 +111,11 @@ declare module 'react-native-touch-id' {
        * @param config - Returns a `Promise` that rejects if TouchID is not supported. On iOS resolves with a `biometryType` `String` of `FaceID` or `TouchID`
        */
       isSupported(config?: IsSupportedConfig): Promise<BiometryType>;
+      /**
+       * 
+       * @param config - Returns a `Promise` that rejects if TouchID is not supported.  Returns an object { hasFaceId: Boolean, hasTouchId: Boolean }
+       */
+      getSupportMatrix(): Promise<SupportMatrix>;
     };
     export default TouchID;
   }

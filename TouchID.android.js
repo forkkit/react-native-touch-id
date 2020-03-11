@@ -14,6 +14,7 @@ export default {
       );
     });
   },
+  
   isSupported(config) {
     return new Promise((resolve, reject) => {
       NativeTouchID.isSupported(

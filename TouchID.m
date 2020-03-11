@@ -6,7 +6,8 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(getSupportMatrix: callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getSupportMatrix: 
+    callback: (RCTResponseSenderBlock)callback)
 {
     callback(@[[[self class] isFaceIdDevice], [[self class] isTouchIdDevice]]);
 }
