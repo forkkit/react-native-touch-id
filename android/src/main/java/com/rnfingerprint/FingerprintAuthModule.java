@@ -49,7 +49,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
     public String getName() {
         return "FingerprintAuth";
     }
-
+    
     @ReactMethod
     public void getSupportMatrix(final Callback reactCallback) {
         final Activity activity = getCurrentActivity();
@@ -68,7 +68,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
         // (not just fingerprint) is actually supported
         reactCallback.invoke(true, false);
     }
-    
+
     @ReactMethod
     public void isSupported(final Callback reactErrorCallback, final Callback reactSuccessCallback) {
         final Activity activity = getCurrentActivity();
