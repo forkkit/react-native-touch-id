@@ -18,13 +18,13 @@ export default {
     return new Promise((resolve, _) => {
       NativeTouchID.getSupportMatrix(
         (hasTouch, hasFace) => {
-          const support = { hasTouchId: hasTouch, hasFaceId: hasFace };
+          const support = { hasTouchId: !!hasTouch, hasFaceId: !!hasFace };
           resolve(support);
         }
       );
     });
   },
-  
+
   isSupported(config) {
     return new Promise((resolve, reject) => {
       NativeTouchID.isSupported(config, (error, biometryType) => {
