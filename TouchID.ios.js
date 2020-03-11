@@ -30,7 +30,6 @@ export default {
         if (error) {
           return reject(createError(config, error.message));
         }
-
         resolve(biometryType);
       });
     });
