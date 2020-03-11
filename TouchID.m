@@ -9,7 +9,11 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(getSupportMatrix: 
     callback: (RCTResponseSenderBlock)callback)
 {
-    callback(@[[[self class] isFaceIdDevice], [[self class] isTouchIdDevice]]);
+    Boolean isFaceId = [[self class] isFaceIdDevice];
+    NSNumber *isFaceIdInt = @(isFaceId);
+    Boolean isTouchId = [[self class] isTouchIdDevice];
+    NSNumber *isTouchIdInt = @(isTouchId);
+    callback(@[isFaceIdInt, isTouchIdInt]);
 }
 
 RCT_EXPORT_METHOD(isSupported: (NSDictionary *)options
