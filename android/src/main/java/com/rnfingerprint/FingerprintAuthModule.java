@@ -66,7 +66,10 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
         // TODO: once this package supports Android's Face Unlock,
         // implement a method to find out which type of biometry
         // (not just fingerprint) is actually supported
-        reactCallback.invoke(true, false);
+        //
+        // First Argument represent FaceID
+        // Second Argument represent Fingerprint
+        reactCallback.invoke(false, true);
     }
 
     @ReactMethod

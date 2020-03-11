@@ -17,7 +17,7 @@ export default {
   getSupportMatrix() {
     return new Promise((resolve, _) => {
       NativeTouchID.getSupportMatrix(
-        (hasTouch, hasFace) => {
+        (hasFace, hasTouch) => {
           const support = { hasTouchId: !!hasTouch, hasFaceId: !!hasFace };
           resolve(support);
         }
