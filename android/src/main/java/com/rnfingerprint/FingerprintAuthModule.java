@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
-import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 
 import com.facebook.react.bridge.Callback;
@@ -21,7 +20,6 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
     private static final String FRAGMENT_TAG = "fingerprint_dialog";
 
-    private final BiometricManager mBiometricManager;
     private KeyguardManager keyguardManager;
     private boolean isAppActive;
 
@@ -31,7 +29,6 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
         super(reactContext);
 
         reactContext.addLifecycleEventListener(this);
-        mBiometricManager = BiometricManager.from(context);
     }
 
     private KeyguardManager getKeyguardManager() {
@@ -60,15 +57,18 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
             return;
         }
 
-        int result = mBiometricManager.canAuthenticate();
-        List<Integer> results = new ArrayList<>();
-        if (result == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
-            reactCallback.invoke(false, false);
+        int result = isFingerprintAuthAvailable();
+        if (result != FingerprintAuthConstants.IS_SUPPORTED) {
+            reactErrorCallback.invoke(false, false);
             return;
-        }
+        } 
+
+        // TODO: once this package supports Android's Face Unlock,
+        // implement a method to find out which type of biometry
+        // (not just fingerprint) is actually supported
         reactCallback.invoke(true, false);
     }
-
+    
     @ReactMethod
     public void isSupported(final Callback reactErrorCallback, final Callback reactSuccessCallback) {
         final Activity activity = getCurrentActivity();

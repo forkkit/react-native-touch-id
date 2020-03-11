@@ -6,8 +6,7 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(getSupportMatrix: 
-    callback: (RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getSupportMatrix: (RCTResponseSenderBlock)callback)
 {
     Boolean isFaceId = [[self class] isFaceIdDevice];
     NSNumber *isFaceIdInt = @(isFaceId);
