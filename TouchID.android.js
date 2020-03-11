@@ -8,12 +8,12 @@ export default {
     return new Promise((resolve, _) => {
       NativeTouchID.getSupportMatrix(
         (hasTouch, hasFace) => {
-          const support = { hasTouchId: hasTouch, hasFaceId: hasFace }
-          resolve(support)
+          const support = { hasTouchId: hasTouch, hasFaceId: hasFace };
+          resolve(support);
         }
-      )
-    })
-  }
+      );
+    });
+  },
   isSupported(config) {
     return new Promise((resolve, reject) => {
       NativeTouchID.isSupported(
