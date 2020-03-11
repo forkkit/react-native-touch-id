@@ -59,7 +59,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         int result = isFingerprintAuthAvailable();
         if (result != FingerprintAuthConstants.IS_SUPPORTED) {
-            reactErrorCallback.invoke(false, false);
+            reactCallback.invoke(false, false);
             return;
         } 
 
