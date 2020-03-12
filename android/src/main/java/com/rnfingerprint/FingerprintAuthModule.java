@@ -59,7 +59,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         int result = isFingerprintAuthAvailable();
         if (result != FingerprintAuthConstants.IS_SUPPORTED) {
-            reactCallback.invoke(false, false);
+            reactCallback.invoke(0, 0);
             return;
         } 
 
@@ -69,7 +69,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
         //
         // First Argument represent FaceID
         // Second Argument represent Fingerprint
-        reactCallback.invoke(false, true);
+        reactCallback.invoke(0, 1);
     }
 
     @ReactMethod
